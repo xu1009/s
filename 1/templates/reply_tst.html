@@ -1,0 +1,419 @@
+$def with(time,co2,pm10,pm25,rh,tem)
+<html>
+  <head>
+    <title>绘图显示系统</title>
+<meta http-equiv="charset" content="UTF-8">
+<script type="text/javascript" src="/static/iet.js">
+</script>  
+ <script type="text/javascript" src="/static/hello.js">
+</script>
+<script type="text/javascript" src="https://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script src="https://cdn.hcharts.cn/highcharts/5.0.9/highcharts.js"></script>
+<script src="https://cdn.hcharts.cn/highcharts/5.0.9/modules/exporting.js"></script>     
+<link type="text/css" rel="stylesheet" href="/static/style.css" charset="UTF-8">                  
+</head> 
+          
+<body  style="background-image:url(http://10.3.200.202/cache/5/04/sanrenxingky.com/b503ad847a3217e5e92fc4b54ae847ad/24c356f0c51d371d118acf65c6f998be.png);background-position:center">
+ 
+    <br>
+<p class="p">室内环境监测系统</p>        
+    
+
+    
+    
+    
+<div class="div">
+     <p id="link1">    
+    二号房间
+    </p>
+       
+  <select id="selectEle1">
+  <option value="nothing"></option>    
+  <option value="co2">CO2</option>
+  <option value="tem">Tem</option>
+  <option value="pm10">Pm10</option>
+  <option value="pm25">Pm25</option>
+  <option value="rh">RH</option>
+  </select>
+<script type="text/javascript">
+var objOfS1 = document.getElementById("selectEle1");
+objOfS1.onchange = function(){ 
+
+var index1 = objOfS1.selectedIndex;
+var nameOfEle1 = objOfS1.options[index1].value;
+
+var len1 =  $len(time[1]);
+var timex = new Array();
+var i = 0;         
+var num ="$time[1]";
+num = num.replace(/&#39;/g,"");
+num = num.replace(/]/,"");
+num = num.replace(/\[/g,"");           
+timex = num.split(",");  
+var newData = new Array();
+var title_x;
+    
+switch(nameOfEle1)
+{
+    case "co2":
+newData.splice(0,newData.length);
+var co21 ="$co2[1]";
+var co213;
+title_x = "CO2变化曲线";
+var re = /\d{5}/g;
+  do
+      {
+       co213 = re.exec(co21);
+       if(co213!=null)
+        newData[i] = parseInt(co213);
+           i+=1;
+      }    
+     while(co213!=null)         
+        break;
+    case "tem":
+        newData.splice(0,newData.length);
+        var tem_x = new Array();
+        var temx = "$tem[1]";
+        title_x = "温度变化曲线";
+        temx = temx.replace(/]/,"");
+        temx = temx.replace(/\[/g,"");           
+        temx = temx.replace(/&#39;/g,"");
+        tem_x = temx.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(tem_x[i]);
+       // alert(temx);
+        break;
+    case "pm10":
+        newData.splice(0,newData.length);
+        var pm10_x = new Array();
+        var pm10x = "$pm10[1]";
+        title_x = "Pm10变化曲线";
+        pm10x = pm10x.replace(/]/,"");
+        pm10x = pm10x.replace(/\[/g,"");           
+        pm10x = pm10x.replace(/&#39;/g,"");
+        pm10_x = pm10x.split(",");         
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(pm10_x[i]); 
+        //alert(pm10x);
+        break;
+    case "pm25":
+        newData.splice(0,newData.length);
+        var pm25_x = new Array();
+        var pm25x = "$pm25[1]"; 
+        title_x = "Pm25变化曲线";
+        pm25x = pm25x.replace(/]/,"");
+        pm25x = pm25x.replace(/\[/g,"");           
+        pm25x = pm25x.replace(/&#39;/g,"");
+        pm25_x = pm25x.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(pm25_x[i]);
+        //alert(pm25x);
+        break;
+    case "rh":
+        newData.splice(0,newData.length);
+        var rh_x = new Array();
+        var rhx = "$rh[1]";
+        title_x = "湿度变化曲线";
+        rhx = rhx.replace(/]/,"");
+        rhx = rhx.replace(/\[/g,"");           
+        rhx = rhx.replace(/&#39;/g,"");
+        rh_x = rhx.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(rh_x[i]);
+       // alert(rhx);
+       break;
+    default:
+        newData.splice(0,newData.length);
+        break;
+}  
+jQuery(function (){                                                                     
+jQuery(document).ready(
+function() {                                                  
+	Highcharts.setOptions({                                                     
+		global: {                                                               
+			useUTC: false                                                       
+		}                                                                       
+	});                                                                         
+																				
+	var chart;                                                                  
+	jQuery('#container2').highcharts({                                                
+		chart: {   
+            //type: 'line',
+            zoomType: 'x',
+			type: 'spline',                                                     
+			//animation: Highcharts.svg, // don't animate in old IE               
+			marginRight: 10                                                   
+		},                                                                      
+		title: {                                                                
+			text: title_x                                            
+		},                                                                      
+		xAxis: {                                                                
+			type: 'datetime',                                                   
+			tickPixelInterval: 100                                            
+		},                                                                      
+		yAxis: {                                                                
+			title: {                                                            
+				text: '浓度'                                                   
+			},                                                                  
+			plotLines: [{                                                       
+				value: 0,                                                       
+				width: 1,                                                       
+				color: '#808080'                                                
+			}]                                                                  
+		},                                                                      
+		tooltip: { 
+           crosshairs: [true, true],
+			formatter: function() {                                             
+					return '<b>'+ this.series.name +'</b><br/>'+                
+					Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+					Highcharts.numberFormat(this.y, 2);                         
+			}                                                                   
+		}, 
+        credits: {
+            enabled: false
+        },        
+		legend: {                                                               
+			layout:'vertical',
+			align:'right',
+			verticalAlign:'top',
+			x:-30,
+			boderWidth:0
+		},                                                                      
+		exporting: {                                                            
+			enabled: true                                                      
+		},                                                                      
+		series: [{                                                              
+			name: nameOfEle1,                                                
+			data: (function() {                                                 
+				// generate an array of random data                             
+				var data = [],                                                  
+					time = (new Date()).getTime(),                              
+					i;                                                          
+					//alert(time);															
+				for (i = 0; i <len1; i++) { 
+                    var timestamp2 = Date.parse(new Date(timex[i].replace(/-/g,"/")));
+                    //alert()
+					data.push({                                                 
+						x: timestamp2,                                     
+						y: newData[i]                                     
+					});                                                         
+				}                                                               
+				return data;                                                    
+			})()                                                                
+		}]                                                                      
+	});                                                                         
+});                                                                             
+																				
+});        
+    
+   
+    
+}
+
+
+</script>
+    
+<div id="container2" style="width:1000px;height:400px;margin:0 auto;"></div>       
+</div>
+
+    
+
+    
+    
+    
+    
+<div class="div">
+     <p id="link1">    
+    四号房间
+    </p>
+       
+  <select id="selectEle3">
+  <option value="nothing"></option>    
+  <option value="co2">CO2</option>
+  <option value="tem">Tem</option>
+  <option value="pm10">Pm10</option>
+  <option value="pm25">Pm25</option>
+  <option value="rh">RH</option>
+  </select>
+<script type="text/javascript">
+var objOfS3 = document.getElementById("selectEle3");
+objOfS3.onchange = function(){ 
+
+var index3 = objOfS3.selectedIndex;
+var nameOfEle3 = objOfS2.options[index3].value;
+
+var len1 =  $len(time[3]);
+var timex = new Array();
+var i = 0;         
+var num ="$time[3]";
+num = num.replace(/&#39;/g,"");
+num = num.replace(/]/,"");
+num = num.replace(/\[/g,"");           
+timex = num.split(",");  
+var newData = new Array();
+var title_x;
+    
+switch(nameOfEle3)
+{
+    case "co2":
+newData.splice(0,newData.length);
+var co21 ="$co2[3]";
+var co213;
+title_x = "CO2变化曲线";
+var re = /\d{5}/g;
+  do
+      {
+       co213 = re.exec(co21);
+       if(co213!=null)
+        newData[i] = parseInt(co213);
+           i+=1;
+      }    
+     while(co213!=null)         
+        break;
+    case "tem":
+        newData.splice(0,newData.length);
+        var tem_x = new Array();
+        var temx = "$tem[3]";
+        title_x = "温度变化曲线";
+        temx = temx.replace(/]/,"");
+        temx = temx.replace(/\[/g,"");           
+        temx = temx.replace(/&#39;/g,"");
+        tem_x = temx.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(tem_x[i]);
+       // alert(temx);
+        break;
+    case "pm10":
+        newData.splice(0,newData.length);
+        var pm10_x = new Array();
+        var pm10x = "$pm10[3]";
+        title_x = "Pm10变化曲线";
+        pm10x = pm10x.replace(/]/,"");
+        pm10x = pm10x.replace(/\[/g,"");           
+        pm10x = pm10x.replace(/&#39;/g,"");
+        pm10_x = pm10x.split(",");         
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(pm10_x[i]); 
+        //alert(pm10x);
+        break;
+    case "pm25":
+        newData.splice(0,newData.length);
+        var pm25_x = new Array();
+        var pm25x = "$pm25[3]"; 
+        title_x = "Pm25变化曲线";
+        pm25x = pm25x.replace(/]/,"");
+        pm25x = pm25x.replace(/\[/g,"");           
+        pm25x = pm25x.replace(/&#39;/g,"");
+        pm25_x = pm25x.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(pm25_x[i]);
+        //alert(pm25x);
+        break;
+    case "rh":
+        newData.splice(0,newData.length);
+        var rh_x = new Array();
+        var rhx = "$rh[3]";
+        title_x = "湿度变化曲线";
+        rhx = rhx.replace(/]/,"");
+        rhx = rhx.replace(/\[/g,"");           
+        rhx = rhx.replace(/&#39;/g,"");
+        rh_x = rhx.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(rh_x[i]);
+       // alert(rhx);
+       break;
+    default:
+        newData.splice(0,newData.length);
+        break;
+}  
+jQuery(function (){                                                                     
+jQuery(document).ready(
+function() {                                                  
+	Highcharts.setOptions({                                                     
+		global: {                                                               
+			useUTC: false                                                       
+		}                                                                       
+	});                                                                         
+																				
+	var chart;                                                                  
+	jQuery('#container4').highcharts({                                                
+		chart: {   
+           // type: 'line',
+            zoomType: 'x',
+			type: 'spline',                                                     
+			//animation: Highcharts.svg, // don't animate in old IE               
+			marginRight: 10                                                   
+		},                                                                      
+		title: {                                                                
+			text: title_x                                            
+		},                                                                      
+		xAxis: {                                                                
+			type: 'datetime',                                                   
+			tickPixelInterval: 100                                            
+		},                                                                      
+		yAxis: {                                                                
+			title: {                                                            
+				text: '浓度'                                                   
+			},                                                                  
+			plotLines: [{                                                       
+				value: 0,                                                       
+				width: 1,                                                       
+				color: '#808080'                                                
+			}]                                                                  
+		},                                                                      
+		tooltip: { 
+           crosshairs: [true, true],
+			formatter: function() {                                             
+					return '<b>'+ this.series.name +'</b><br/>'+                
+					Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+					Highcharts.numberFormat(this.y, 2);                         
+			}                                                                   
+		}, 
+        credits: {
+            enabled: false
+        },        
+		legend: {                                                               
+			layout:'vertical',
+			align:'right',
+			verticalAlign:'top',
+			x:-30,
+			boderWidth:0
+		},                                                                      
+		exporting: {                                                            
+			enabled: true                                                      
+		},                                                                      
+		series: [{                                                              
+			name: nameOfEle3,                                                
+			data: (function() {                                                 
+				// generate an array of random data                             
+				var data = [],                                                  
+					time = (new Date()).getTime(),                              
+					i;                                                          
+					//alert(time);															
+				for (i = 0; i <len1; i++) { 
+                    var timestamp2 = Date.parse(new Date(timex[i].replace(/-/g,"/")));//奇葩问题，年月日分隔符-只有谷歌浏览器支持，/这个分隔符所有浏览器支持
+                    //alert()
+					data.push({                                                 
+						x: timestamp2,                                     
+						y: newData[i]                                     
+					});                                                         
+				}                                                               
+				return data;                                                    
+			})()                                                                
+		}]                                                                      
+	});                                                                         
+});                                                                             
+																				
+});        
+       
+    
+}
+
+
+</script>
+    
+<div id="container4" style="width:1000px;height:400px;margin:0 auto;"></div>       
+</div>    
+    
+  </body>
+</html>

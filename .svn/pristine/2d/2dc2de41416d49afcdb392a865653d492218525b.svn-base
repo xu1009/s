@@ -1,0 +1,126 @@
+$def with(time,co2,pm10,pm25,rh,tem)
+<html>
+  <head>
+    <title>绘图显示系统</title>	       
+<script type="text/javascript" src="/static/iet.js">
+</script>  
+ <script type="text/javascript" src="/static/hello.js">
+</script>  
+
+<link type="text/css" rel="stylesheet" href="/static/style.css" charset="UTF-8">
+  </head> 
+  <body  style="background-image:url(http://10.3.200.202/cache/5/04/sanrenxingky.com/b503ad847a3217e5e92fc4b54ae847ad/24c356f0c51d371d118acf65c6f998be.png);background-position:center">
+  <a href="http://www.baidu.com" id="link">百度</a><br>   
+    <div class="center-in-center">  
+  <table border="2"> 
+  <thead>
+  <tr>
+  <th>ID</th>
+  <th>Time</th>
+  <th>CO2</th>
+  <th>RH</th>
+  <th>Tem</th> 
+  <th>PM25</th>
+  <th>PM10</th> 
+  </tr>
+  </thead>
+  <tbody>     
+    $for i in range(numOfData):
+			<tr>
+                <td>$i</td>
+                <td>$time[i]</td>
+				<td>$co2[i]</td>
+                <td>$rh[i]</td>
+				<td>$tem[i]</td>
+                <td>$pm25[i]</td>
+                <td>$pm10[i]</td>
+             </tr>  
+         
+  </tbody> 
+  </table>
+        </div>     
+    <br>
+  <!--<img alt="name" src="C:\Users\lenovo\Desktop\a08b87d6277f9e2f84c8a6141930e924b899f329.jpg">-->
+  二氧化碳浓度变化曲线如下图：<br>       
+<canvas id="myCanvas" width="300" height="100" style="border:1px solid #c3c3c3;">
+Your browser does not support the canvas element.
+</canvas>
+
+   
+<script type="text/javascript">
+var i=0;
+var newData = new Array();
+var len1 = $numOfData;
+var co21 ="$co2"
+var co213;
+var re = /\d{5}/g;
+do
+      {
+       co213 = re.exec(co21);
+       if(co213!=null)
+        newData[i] = parseInt(co213);
+           i+=1;
+      }    
+while(co213!=null)
+var c=document.getElementById("myCanvas");
+var cxt=c.getContext("2d");
+var g=cxt.createLinearGradient(0,0,0,c.height);
+g.addColorStop(0,"#e0e0e0");
+g.addColorStop(1,"#ffffff");
+cxt.fillStyle=g;
+cxt.fillRect(0,0,c.width,c.height);
+var cols=newData.length+1;
+var rows=4;
+var cell_width=c.width/cols;
+var cell_height=c.height/rows;
+cxt.strokeStyle="#a0a0a0";
+for(i=0;i<=rows;i++)
+{
+            
+            var heiy=cell_height*i;
+            cxt.moveTo(0,heiy);
+            cxt.lineTo(c.width,heiy);
+    }
+
+for(var j=0;j<=cols;j++)
+{
+           
+            var widx=cell_width*j;
+            cxt.moveTo(widx,0);
+            cxt.lineTo(widx,c.height);
+  }
+cxt.stroke();
+var max_val=0;
+ for(i=0;i<newData.length;i++)
+ {
+       if(max_val<newData[i])
+           max_val=newData[i];
+   }
+ max_val=max_val*1.1;
+var points=new Array();
+        for(var i=0;i<newData.length;i++)
+        {
+            var v=newData[i];
+            var px=cell_width*(i+1);
+            var py=c.height-c.height*(v/max_val);
+            points.push({"x":px,"y":py});
+        }
+
+cxt.beginPath();
+cxt.moveTo(parseInt(points[0].x),parseInt(points[0].y));
+for(var i=0;i<newData.length;i++)
+ cxt.lineTo(parseInt(points[i].x),parseInt(points[i].y));     
+        cxt.strokeStyle="#ee0000";
+        cxt.stroke();
+for(var j in points)
+		{
+            var p=points[j];
+            cxt.beginPath();
+            cxt.arc(p.x, p.y,3,0,2*Math.PI);
+            cxt.fillStyle="#ee0000";
+            cxt.fill();
+        }            
+ </script>     
+      <br>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <link type="text/css" rel="stylesheet" href="/static/style.css" charset="UTF-8"/>
+
+<script type="text/javascript">
+
+
+  function identy()
+{
+var name = document.getElementById("inputEmail3").value;
+var password = document.getElementById("inputPassword3").value;
+var codeinput = document.getElementById("code").value;
+if(!name)
+{
+    alert("用户名不能为空");
+
+}
+if(!password)
+{
+    alert("密码不能为空");
+
+}
+
+if(name&&password) //submit
+{
+
+   // alert("用户名密码非空");
+
+     //alert(codeinput.toLowerCase());
+    // alert(code.toString().toLowerCase().replace(/,/g,""));
+
+    if(!codeinput)
+    {
+    alert("验证码不能为空");
+
+    }
+    else if(codeinput.toLowerCase()==code.toString().toLowerCase().replace(/,/g,""))
+     {
+
+         //alert("验证码正确");
+     // alert(name);
+    //  alert(password);
+     jQuery.post("http://1.deveple.applinzi.com",{inputEmail3:name,inputPassword3:password},function(data){
+
+
+       // alert(data);
+
+         if(data=="allright")
+         {
+          //alert("用户名或者密码错误");
+         window.location.href='http://1.deveple.applinzi.com/main';
+
+         }
+         else if(data=="不存在该用户")
+         {
+            // alert("用户名或者密码错误");
+         alert("不存在该用户");
+
+         }
+         else if(data=="密码错误")
+             {
+              alert("密码错误，请重新输入！");
+
+             }
+
+
+
+
+
+
+     });
+
+     }
+    else
+    {
+        alert("验证码不正确");
+
+    }
+
+}
+}
+        </script>
+
+
+         	<script type="text/javascript">
+
+            function keydown()
+                {
+
+                if(event.keyCode==13)
+                {
+
+                document.getElementById("click").click();}
+
+                }
+
+            </script>
+    </head>
+    <body onkeydown="keydown()">
+ <div class="div">
+	<div>
+		<div>
+
+					 <label>用户名：</label>
+
+						<input type="text"  id="inputEmail3" name="inputEmail3"/>
+
+
+				     <br>
+					 <label> &nbsp;&nbsp;&nbsp;密码：</label>
+
+						<input type="password"  id="inputPassword3" name="inputPassword3"/>
+
+				<br>
+
+
+
+                       <label> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;验证码：</label>
+                  <input type="text" id="code"/>
+
+                    <canvas id="canvas" width="130" height="40"></canvas>
+                    <a href="#" id="changeImg"> 换一张</a>
+
+                         <br>
+
+				      <button id="click" class="btn btn-default" onclick="identy()">登录</button>
+
+
+
+            <script type="text/javascript">
+
+         var code = new Array();
+ function randomNum(min,max)
+{
+return Math.floor(Math.random()*(max-min)+min);
+}
+function randomColor(min,max)
+{
+ r = randomNum(min,max);
+ g = randomNum(min,max);
+ b = randomNum(min,max);
+ return "rgb("+r+","+g+","+b+")";
+}
+
+function drawPic()
+{
+var can = document.getElementById("canvas");
+var height = can.height;
+var weight = can.width;
+var ctx = can.getContext("2d");
+ctx.textBaseline = "bottom";
+ctx.fillStyle = randomColor(180,240);
+ctx.fillRect(0,0,weight,height);
+var strNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+for(var i = 0;i<4;i++)
+{
+    var txt = strNum[randomNum(0,strNum.length)];
+    code[i] = txt;
+    ctx.fillStyle = randomColor(50,160);
+    ctx.font = randomNum(20,40)+"px SimHei";
+    var x = i*24+25;
+    var y = randomNum(30,35);
+    var deg = randomNum(-30,30);
+    ctx.translate(x,y);
+    ctx.rotate(deg*Math.PI/180);
+    ctx.fillText(txt,0,0);
+    ctx.rotate(-deg*Math.PI/180);
+    ctx.translate(-x,-y);
+}
+
+
+    for(var i=0; i<100; i++){
+        ctx.fillStyle = randomColor(0,255);
+        ctx.beginPath();
+        ctx.arc(randomNum(0,weight),randomNum(0,height), 1, 0, 2*Math.PI);
+        ctx.fill();
+    }
+
+}
+ drawPic();
+       document.getElementById("changeImg").onclick = function(e){
+    e.preventDefault();
+    drawPic();
+       }
+</script>
+
+
+
+		</div>
+	</div>
+</div>
+        </body>
+    </html>

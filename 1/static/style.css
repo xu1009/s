@@ -1,0 +1,9 @@
+#link{color: blue; font-size: 10px}
+#link1{color: green; font-size: 50px}
+ .center-in-center{   
+            position: absolute;   
+            top: 10%;   
+            left: 10%;   
+         }   
+.div{text-align:center;margin-top:28px}
+.p{margin:0 auto;color:green;font-size:40px}

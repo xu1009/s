@@ -1,0 +1,45 @@
+$def with(time,co2,pm10,pm25,rh,tem)
+<html>
+  <head>
+    <title>绘图显示系统</title>	       
+
+       <script type="text/javascript">
+        var len1 =  $len(time[0]);
+        var timex = new Array();
+        var pm10_x = new Array();
+        var pm10_x = new Array();
+        var i = 0;         
+        var num ="$time[0]";
+        num = num.replace(/&#39;/g,"");
+        num = num.replace(/ /,"");
+        num = num.replace(/]/,"");
+        num = num.replace(/\[/g,"");           
+        timex = num.split(",");
+        var pm10x = "$pm10[0]";
+        pm10x = pm10x.replace(/]/,"");
+        pm10x = pm10x.replace(/\[/g,"");           
+        pm10x = pm10x.replace(/&#39;/g,"");
+        pm10_x = pm10x.split(","); 
+        var pm25x = "$pm25[0]";
+        pm25x = pm25x.replace(/]/,"");
+        pm25x = pm25x.replace(/\[/g,"");           
+        pm25x = pm25x.replace(/&#39;/g,"");
+        pm25_x = pm25x.split(",");
+        
+        var temx = "$tem[0]";
+        temx = temx.replace(/]/,"");
+        temx = temx.replace(/\[/g,"");           
+        temx = temx.replace(/&#39;/g,"");         
+       
+        var rhx = "$rh[0]";
+        rhx = rhx.replace(/]/,"");
+        rhx = rhx.replace(/\[/g,"");           
+        rhx = rhx.replace(/&#39;/g,"");
+        alert(rhx);
+    </script> 
+      
+      
+  </head> 
+  <body  style="background-image:url(http://10.3.200.202/cache/5/04/sanrenxingky.com/b503ad847a3217e5e92fc4b54ae847ad/24c356f0c51d371d118acf65c6f998be.png);background-position:center">
+  </body>
+</html>

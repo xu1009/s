@@ -1,0 +1,229 @@
+$def with(time,co2,pm10,pm25,rh,tem)
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>绘图显示系统</title>
+<meta http-equiv="charset" content="UTF-8">
+<script type="text/javascript" src="/static/iet.js">
+</script>  
+ <script type="text/javascript" src="/static/hello.js">
+</script>
+<script type="text/javascript" src="https://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script src="https://cdn.hcharts.cn/highcharts/5.0.9/highcharts.js"></script>
+<script src="https://cdn.hcharts.cn/highcharts/5.0.9/modules/exporting.js"></script>     
+<link type="text/css" rel="stylesheet" href="/static/style.css" charset="UTF-8">                  
+</head> 
+          
+<body  style="background-image:url(http://10.3.200.202/cache/5/04/sanrenxingky.com/b503ad847a3217e5e92fc4b54ae847ad/24c356f0c51d371d118acf65c6f998be.png);background-position:center">
+<a href="/download/1.py" download="da">点击下载</a><br>   
+    <br>
+<p class="p">显示</p>        
+
+    
+<div class="div">   
+   <p id="link1">    
+    一号房间
+    </p>
+       
+  <select id="selectEle">
+  <option value="nothing"></option>    
+  <option value="co2">CO2</option>
+  <option value="tem">Tem</option>
+  <option value="pm10">Pm10</option>
+  <option value="pm25">Pm25</option>
+  <option value="rh">RH</option>
+  </select>
+
+<script type="text/javascript">
+var objOfS = document.getElementById("selectEle");
+objOfS.onchange = function(){   
+var index = objOfS.selectedIndex;
+var nameOfEle = objOfS.options[index].value;
+var len1 =  $len(time[0]);
+var timex = new Array();
+var i = 0;         
+var num ="$time[0]";
+num = num.replace(/&#39;/g,"");
+num = num.replace(/]/,"");
+num = num.replace(/\[/g,"");           
+timex = num.split(",");
+//alert(timex[0]);
+//var timestamp2 = Date.parse(new Date(timex[0]));
+//alert(timestamp2);
+    
+var newData = new Array();
+var title_x;
+switch(nameOfEle)
+{
+    case "co2":
+//newData.splice(0,newData.length);
+var co21 ="$co2[0]";
+var co213;
+title_x = "CO2变化曲线";
+var re = /\d{5}/g;
+  do
+      {
+       co213 = re.exec(co21);
+       if(co213!=null)
+        newData[i] = parseInt(co213);
+           i+=1;
+      }    
+     while(co213!=null)  
+      //alert(newData);
+        break;
+    case "tem":
+        newData.splice(0,newData.length);
+        var tem_x = new Array();
+        var temx = "$tem[0]";
+        title_x = "温度变化曲线";
+        temx = temx.replace(/]/,"");
+        temx = temx.replace(/\[/g,"");           
+        temx = temx.replace(/&#39;/g,"");
+        tem_x = temx.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(tem_x[i]);
+        //alert(newData);
+        break;
+    case "pm10":
+        newData.splice(0,newData.length);
+        var pm10_x = new Array();
+        var pm10x = "$pm10[0]";
+        title_x = "Pm10变化曲线";
+        pm10x = pm10x.replace(/]/,"");
+        pm10x = pm10x.replace(/\[/g,"");           
+        pm10x = pm10x.replace(/&#39;/g,"");
+        pm10_x = pm10x.split(",");         
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(pm10_x[i]); 
+       // alert(newData);
+        break;
+    case "pm25":
+        newData.splice(0,newData.length);
+        var pm25_x = new Array();
+        var pm25x = "$pm25[0]"; 
+        title_x = "Pm25变化曲线";
+        pm25x = pm25x.replace(/]/,"");
+        pm25x = pm25x.replace(/\[/g,"");           
+        pm25x = pm25x.replace(/&#39;/g,"");
+        pm25_x = pm25x.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(pm25_x[i]);
+        //alert(newData);
+        break;
+    case "rh":
+        newData.splice(0,newData.length);
+       // alert(newData);
+        var rh_x = new Array();
+        var rhx = "$rh[0]";
+        
+        title_x = "湿度变化曲线";
+        rhx = rhx.replace(/]/,"");
+        rhx = rhx.replace(/\[/g,"");           
+        rhx = rhx.replace(/&#39;/g,"");
+        rh_x = rhx.split(",");
+        //alert(rh_x);
+        //alert(len1)
+        for(i=0;i<len1;i++)
+        {
+            newData[i] = parseFloat(rh_x[i]);
+            //alert(rh_x[i]);
+        }
+        
+        //alert(newData);
+       break;
+    default:
+        alert("nothing");
+        newData.splice(0,newData.length);
+        break;
+}
+//alert(timex);
+jQuery(function (){                                                                     
+jQuery(document).ready(
+function() {                                                  
+	Highcharts.setOptions({                                                     
+		global: {                                                               
+			useUTC: true                                                       
+		}                                                                       
+	});                                                                         
+																				
+	var chart;                                                                  
+	jQuery('#container1').highcharts({                                                
+		chart: {   
+            //type: 'line',
+            zoomType: 'x',
+			type: 'spline',                                                     
+			//animation: Highcharts.svg, // don't animate in old IE               
+			marginRight: 10                                                    
+		},                                                                      
+		title: {                                                                
+			text: title_x                                            
+		},                                                                      
+		xAxis: {                                                                
+			type: 'datetime',                                                   
+			tickPixelInterval: 100                                            
+		},                                                                      
+		yAxis: {                                                                
+			title: {                                                            
+				text: '浓度'                                                   
+			},                                                                  
+			plotLines: [{                                                       
+				value: 0,                                                       
+				width: 1,                                                       
+				color: '#808080'                                                
+			}]                                                                  
+		},                                                                      
+		tooltip: { 
+           crosshairs: [true, true],
+			formatter: function() {                                             
+					return '<b>'+ this.series.name +'</b><br/>'+                
+					Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+					Highcharts.numberFormat(this.y, 2);                         
+			}                                                                   
+		},
+        credits: {
+            enabled: false
+        },
+		legend: {                                                               
+			layout:'vertical',
+			align:'right',
+			verticalAlign:'top',
+			x:-30,
+			boderWidth:0
+		},                                                                      
+		exporting: {                                                            
+			enabled: true                                                      
+		},                                                                      
+		series: [{                                                              
+			name: nameOfEle,                                                
+			data: (function() {                                                 
+				// generate an array of random data                             
+				var data = [],                                                  
+					time = (new Date()).getTime(),                              
+					i;                                                          
+					//alert(time);															
+				for (i = 0; i <len1; i++) { 
+                    var time1 = timex[i];
+                    var tim = new Date(time1.replace(/-/g,"/"))
+                    var timestamp2 = Date.parse(tim);
+                   // alert(timestamp2);
+					data.push({                                                 
+						x: timestamp2,                                     
+						y: newData[i]                                      
+					});                                                         
+				}                                                               
+				return data;                                                    
+			})()                                                                
+		}]                                                                      
+	});                                                                         
+});                                                                             
+																				
+});        
+		
+	}
+
+ </script>   
+<div id="container1" style="width:1000px;height:400px;margin:0 auto;"></div> 
+</div>      
+    
+    
+  </body>
+</html>
