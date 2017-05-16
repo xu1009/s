@@ -1,0 +1,15 @@
+# -*- coding: utf-8 -*-
+import hashlib
+import web
+import lxml
+import time
+import os
+import urllib,json
+from lxml import etree
+import connectData
+import re
+from sae.storage import Bucket,Connection
+class Tst1:
+	def GET(self):
+		return connectData.db
+		

@@ -1,0 +1,34 @@
+# -*- coding: utf-8 -*-
+import hashlib
+import web
+import lxml
+import time
+import os
+import urllib2,json
+from lxml import etree
+import connectData
+import re
+import urllib
+from PIL import Image,ImageFont,ImageDraw,ImageFilter
+import random
+import StringIO
+from sae.storage import Bucket,Connection 
+class Validation:
+	def GET(self):
+		ip = web.ctx.ip
+		charset = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		width = 60*4
+		height = 60
+		image = Image.new('RGB',(width,height),(255,255,255))
+		font = ImageFont.truetype("symbol.ttf",size=36)
+		draw = ImageDraw.Draw(image)
+		for x in range(width):
+				for y in range(height):
+						draw.point((x,y),fill=(random.randint(20,100),random.randint(20,100),random.randint(20,100)))
+		for t in range(4):
+				draw.text((60*t+10,10),random.sample(charset,1)[0],font=font,fill=(random.randint(180,255),random.randint(180,255),random.randint(180,255)))		    
+		image = image.filter(ImageFilter.BLUR)
+		out = StringIO.StringIO()
+		image.save(out,'jpeg',quality=75)
+		web.header('Content-Type','image/jpeg')
+		return out.getvalue()

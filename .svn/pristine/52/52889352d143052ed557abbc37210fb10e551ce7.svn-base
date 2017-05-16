@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+import hashlib
+import web
+import lxml
+import time
+import os
+import urllib,json
+from lxml import etree
+import connectData
+import re
+from sae.storage import Bucket,Connection
+urls = (
+	'/weixin','WeixinInterface',
+	'/data','SaveData',
+	'/','Login',
+	'/delete','DeleteMysql',
+    '/Datashow','ImgPrint',
+    '/nothing','Nothing',
+    '/roomone','NumOfOne',
+    '/roomtwo','NumOfTwo',
+    '/three','NumOfThr',
+    '/four','NumOfFou',
+    '/five','NumOfFiv',
+    '/main','MainGUI',
+    '/tst','TstBucket',
+    '/delstorage','DelStorage',
+    '/creat','CreatMenu',
+    '/tju(\d)','TstUrl',
+    '/tjuone(\d)','TJUONE',
+    '/ttt','TTT',
+    '/val','Validation',
+	'/tst1','Tst1',
+)
+class Tst1:
+	def GET(self):
+		web.config.debug = False
+		db = connectData.db
+		store = web.session.DBStore(db,'session')
+		app = web.application(urls, globals())
+		session = web.session.Session(app, store,initializer={'count':'true'})
+		session.count = 'false'
+		return session.count
+		

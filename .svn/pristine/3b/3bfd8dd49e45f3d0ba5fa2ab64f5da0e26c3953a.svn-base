@@ -1,0 +1,409 @@
+$def with(time,co2,pm10,pm25,rh,tem,pm0325,pm2510,add)
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+   <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+   <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="https://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script src="https://cdn.hcharts.cn/highcharts/5.0.9/highcharts.js"></script>
+<script src="https://cdn.hcharts.cn/highcharts/5.0.9/modules/exporting.js"></script>     
+<link type="text/css" rel="stylesheet" href="/static/style.css" charset="UTF-8"> 
+
+</head>
+
+<body>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="navbar-header">
+					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> 
+					 <span class="sr-only">Toggle navigation</span>
+					 <span class="icon-bar"></span>
+					 <span class="icon-bar"></span>
+					 <span class="icon-bar"></span>
+					 </button> 
+					 <a class="navbar-brand" href="http://1.deveple.applinzi.com/main">首页</a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">实验室测试场<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									 <a href="http://1.deveple.applinzi.com/roomone">一号房间</a>
+								</li>
+								<li>
+									 <a href="http://1.deveple.applinzi.com/roomtwo">二号房间</a>
+								</li>
+								<li>
+									 <a href="http://1.deveple.applinzi.com/three">三号房间</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="http://1.deveple.applinzi.com/four">四号房间</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="http://1.deveple.applinzi.com/five">五号房间</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">住宅测试场<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									 <a href="http://1.deveple.applinzi.com/tjuone1">一号房间</a>
+								</li>
+								<li>
+									 <a href="http://1.deveple.applinzi.com/tjuone2">二号房间</a>
+								</li>
+								<li>
+									 <a href="http://1.deveple.applinzi.com/tjuone3">三号房间</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="http://1.deveple.applinzi.com/tjuone4">四号房间</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="http://1.deveple.applinzi.com/tjuone5">五号房间</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">教室测试场<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									 <a href="#">一号房间</a>
+								</li>
+								<li>
+									 <a href="#">二号房间</a>
+								</li>
+								<li>
+									 <a href="#">三号房间</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="#">四号房间</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="#">五号房间</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">其他场地<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									 <a href="#">二氧化碳</a>
+								</li>
+								<li>
+									 <a href="#">温度</a>
+								</li>
+								<li>
+									 <a href="#">湿度</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="#">PM10</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="#">PM25</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">其他场地<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									 <a href="#">二氧化碳</a>
+								</li>
+								<li>
+									 <a href="#">温度</a>
+								</li>
+								<li>
+									 <a href="#">湿度</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="#">PM10</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="#">PM25</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" />
+						</div> 
+						<button type="submit" class="btn btn-default">Serach</button>
+					</form>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							 <a href="#">注册</a>
+						</li>
+						<li>
+							 <a href="#">登录</a>
+						</li>
+						
+					</ul>
+				</div>
+			</nav>
+		
+		</div>
+	</div>
+
+<div class="div"> 
+  <a href="http://deveple-data.stor.sinaapp.com/roomone.txt" download="da">点击下载</a><br>  
+    <p class="p">一号房间</p>
+    <p class="p">$add</p>
+  请选择：<select id="selectEle">
+  <option value="nothing"></option>    
+  <option value="co2">CO2</option>
+  <option value="tem">Tem</option>
+  <option value="pm10">Pm10</option>
+  <option value="pm25">Pm25</option>
+  <option value="rh">RH</option>
+  <option value="pm2510">Pm2510</option>
+  <option value="pm0325">Pm0325</option>
+  </select>
+
+<script type="text/javascript">
+var objOfS = document.getElementById("selectEle");
+objOfS.onchange = function(){   
+var index = objOfS.selectedIndex;
+var nameOfEle = objOfS.options[index].value;
+var len1 =  $len(time[0]);
+var timex = new Array();
+var i = 0;         
+var num ="$time[0]";
+num = num.replace(/&#39;/g,"");
+num = num.replace(/]/,"");
+num = num.replace(/\[/g,"");           
+timex = num.split(",");
+    
+//alert(timex[0]);
+//var timestamp2 = Date.parse(new Date(timex[0]));
+//alert(timestamp2);
+    
+var newData = new Array();
+var title_x;
+switch(nameOfEle)
+{
+    case "co2":
+newData.splice(0,newData.length);
+var co21 ="$co2[0]";
+var co213;
+title_x = "CO2变化曲线";
+var re = /\d{5}/g;
+  do
+      {
+       co213 = re.exec(co21);
+       if(co213!=null)
+        newData[i] = parseInt(co213);
+           i+=1;
+      }    
+     while(co213!=null)         
+        break;
+    case "tem":
+        newData.splice(0,newData.length);
+        var tem_x = new Array();
+        var temx = "$tem[0]";
+        title_x = "温度变化曲线";
+        temx = temx.replace(/]/,"");
+        temx = temx.replace(/\[/g,"");           
+        temx = temx.replace(/&#39;/g,"");
+        tem_x = temx.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(tem_x[i]);
+        //alert(temx);
+        break;
+    case "pm10":
+        newData.splice(0,newData.length);
+        var pm10_x = new Array();
+        var pm10x = "$pm10[0]";
+        title_x = "Pm10变化曲线";
+        pm10x = pm10x.replace(/]/,"");
+        pm10x = pm10x.replace(/\[/g,"");           
+        pm10x = pm10x.replace(/&#39;/g,"");
+        pm10_x = pm10x.split(",");         
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(pm10_x[i]); 
+        //alert(pm10x);
+        break;
+    case "pm25":
+        newData.splice(0,newData.length);
+        var pm25_x = new Array();
+        var pm25x = "$pm25[0]"; 
+        title_x = "Pm25变化曲线";
+        pm25x = pm25x.replace(/]/,"");
+        pm25x = pm25x.replace(/\[/g,"");           
+        pm25x = pm25x.replace(/&#39;/g,"");
+        pm25_x = pm25x.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(pm25_x[i]);
+        //alert(pm25x);
+        break;
+    case "rh":
+        newData.splice(0,newData.length);
+        var rh_x = new Array();
+        var rhx = "$rh[0]";
+        title_x = "湿度变化曲线";
+        rhx = rhx.replace(/]/,"");
+        rhx = rhx.replace(/\[/g,"");           
+        rhx = rhx.replace(/&#39;/g,"");
+        rh_x = rhx.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(rh_x[i]);
+        //alert(rh_x);
+       break;
+    case "pm0325":
+        newData.splice(0,newData.length);
+        var pm0325_x = new Array();
+        var pm0325x = "$pm0325[0]";
+        title_x = "pm0325变化曲线";
+        pm0325x = pm0325x.replace(/]/,"");
+        pm0325x = pm0325x.replace(/\[/g,"");           
+        pm0325x = pm0325x.replace(/&#39;/g,"");
+        pm0325_x = pm0325x.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(pm0325_x[i]);
+        //alert(rh_x);
+       break;
+    case "pm2510":
+        newData.splice(0,newData.length);
+        var pm2510_x = new Array();
+        var pm2510x = "$pm2510[0]";
+        title_x = "pm2510变化曲线";
+        pm2510x = pm2510x.replace(/]/,"");
+        pm2510x = pm2510x.replace(/\[/g,"");           
+        pm2510x = pm2510x.replace(/&#39;/g,"");
+        pm2510_x = pm2510x.split(",");
+        for(i=0;i<len1;i++)
+            newData[i] = parseFloat(pm2510_x[i]);
+        //alert(rh_x);
+       break;        
+    default:
+        newData.splice(0,newData.length);
+        break;
+}
+    
+jQuery(function (){                                                                     
+jQuery(document).ready(
+function() {                                                  
+	Highcharts.setOptions({                                                     
+		global: {                                                               
+			useUTC: false                                                       
+		}                                                                       
+	});                                                                         
+																				
+	var chart;                                                                  
+	jQuery('#container1').highcharts({                                                
+		chart: {   
+            //type: 'line',
+            zoomType: 'x',
+			type: 'spline',                                                     
+			//animation: Highcharts.svg, // don't animate in old IE               
+			marginRight: 10                                                    
+		},                                                                      
+		title: {                                                                
+			text: title_x                                            
+		},                                                                      
+		xAxis: {                                                                
+			type: 'datetime',                                                   
+			tickPixelInterval: 100                                            
+		},                                                                      
+		yAxis: {                                                                
+			title: {                                                            
+				text: '浓度'                                                   
+			},                                                                  
+			plotLines: [{                                                       
+				value: 0,                                                       
+				width: 1,                                                       
+				color: '#808080'                                                
+			}]                                                                  
+		},                                                                      
+		tooltip: { 
+           crosshairs: [true, true],
+			formatter: function() {                                             
+					return '<b>'+ this.series.name +'</b><br/>'+                
+					Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+					Highcharts.numberFormat(this.y, 2);                         
+			}                                                                   
+		},
+        credits: {
+            enabled: false
+        },
+		legend: {                                                               
+			layout:'vertical',
+			align:'right',
+			verticalAlign:'top',
+			x:-30,
+			boderWidth:0
+		},                                                                      
+		exporting: {                                                            
+			enabled: true                                                      
+		},                                                                      
+		series: [{                                                              
+			name: nameOfEle,                                                
+			data: (function() {                                                 
+				// generate an array of random data                             
+				var data = [],                                                  
+					time = (new Date()).getTime(),                              
+					i;                                                          
+					//alert(time);															
+				for (i = 0; i <len1; i++) { 
+                    var timestamp2 = Date.parse(new Date(timex[i].replace(/-/g,"/")));
+                    //alert()
+					data.push({                                                 
+						x: timestamp2,                                     
+						y: newData[i]                                      
+					});                                                         
+				}                                                               
+				return data;                                                    
+			})()                                                                
+		}]                                                                      
+	});                                                                         
+});                                                                             
+																				
+});        
+		
+	}
+
+ </script>   
+<div id="container1" style="width:1000px;height:400px;margin:0 auto;"></div> 
+</div>  			
+
+
+
+
+</div>
+</body>
+
+</html>

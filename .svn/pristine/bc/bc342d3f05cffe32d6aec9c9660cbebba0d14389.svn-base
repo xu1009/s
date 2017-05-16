@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+import hashlib
+import web
+import lxml
+import time
+import os
+import urllib2,json
+from lxml import etree
+import connectData
+import re
+class MainGUI:
+	def __init__(self):
+			self.app_root = os.path.dirname(__file__)
+			self.templates_root = os.path.join(self.app_root, 'templates')
+			self.render = web.template.render(self.templates_root)
+	def GET(self):
+			num = str(list(connectData.get_num()))
+			num = re.findall(r".+u'(.+)'.+",num)[0]
+			num = (int)(num)
+			num += 1
+			num = (str)(num)
+			connectData.update_num(num)
+			#return num
+			return  self.render.bootstrap(num)
